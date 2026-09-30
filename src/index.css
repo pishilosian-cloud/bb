@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* German / Latin typography styling helper */
+  .font-de {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    direction: ltr;
+    display: inline-block;
+    text-align: left;
+  }
+}
+
+/* 3D Flip Card Effect for Flashcards */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.8);
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Article colors utility classes */
+.article-der {
+  color: #2563eb;
+  border-color: #93c5fd;
+  background-color: #eff6ff;
+}
+
+.article-die {
+  color: #e11d48;
+  border-color: #fca5a5;
+  background-color: #fff1f2;
+}
+
+.article-das {
+  color: #16a34a;
+  border-color: #86efac;
+  background-color: #f0fdf4;
+}
