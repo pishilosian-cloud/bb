@@ -7,8 +7,9 @@ import { FlashcardsModal } from './components/FlashcardsModal';
 import { QuizModal } from './components/QuizModal';
 import { AdvancedSearchModal } from './components/AdvancedSearchModal';
 import { PdfPipelineManager } from './components/PdfPipelineManager';
+import { HoertexteViewerModal } from './components/HoertexteViewerModal';
 import { CategoryType, SourceType } from './types/vocabulary';
-import { BookOpen, Heart, Globe, Sparkles, Layers, Search, Database } from 'lucide-react';
+import { BookOpen, Heart, Globe, Sparkles, Layers, Search, Database, Headphones } from 'lucide-react';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'dashboard' | 'lesson' | 'flashcards' | 'quiz' | 'search' | 'database'>('dashboard');
@@ -19,6 +20,8 @@ export default function App() {
   const [isFlashcardsOpen, setIsFlashcardsOpen] = useState(false);
   const [isQuizOpen, setIsQuizOpen] = useState(false);
   const [isDatabaseOpen, setIsDatabaseOpen] = useState(false);
+  const [isHoertexteOpen, setIsHoertexteOpen] = useState(false);
+  const [hoertexteLesson, setHoertexteLesson] = useState(1);
 
   // Flashcards initial filters
   const [flashcardFilters, setFlashcardFilters] = useState<{
@@ -62,6 +65,11 @@ export default function App() {
     setIsQuizOpen(true);
   };
 
+  const handleOpenHoertexte = (lessonNum?: number) => {
+    setHoertexteLesson(lessonNum || selectedLesson);
+    setIsHoertexteOpen(true);
+  };
+
   return (
     <VocabularyProvider>
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800 antialiased selection:bg-amber-200 selection:text-amber-900">
@@ -76,6 +84,7 @@ export default function App() {
           onOpenFlashcards={() => handleOpenFlashcards()}
           onOpenQuiz={() => handleOpenQuiz()}
           onOpenDatabase={() => setIsDatabaseOpen(true)}
+          onOpenHoertexte={() => handleOpenHoertexte()}
         />
 
         {/* Main Content Area */}
@@ -97,6 +106,7 @@ export default function App() {
               onBackToDashboard={() => setCurrentView('dashboard')}
               onStartFlashcards={(lNum, cat, src) => handleOpenFlashcards(lNum, cat, src)}
               onStartQuiz={(lNum) => handleOpenQuiz(lNum)}
+              onOpenHoertexte={(lNum) => handleOpenHoertexte(lNum)}
             />
           )}
         </main>
@@ -152,6 +162,13 @@ export default function App() {
         {isDatabaseOpen && (
           <PdfPipelineManager
             onClose={() => setIsDatabaseOpen(false)}
+          />
+        )}
+
+        {isHoertexteOpen && (
+          <HoertexteViewerModal
+            initialLesson={hoertexteLesson}
+            onClose={() => setIsHoertexteOpen(false)}
           />
         )}
 

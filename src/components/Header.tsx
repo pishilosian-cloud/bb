@@ -10,7 +10,8 @@ import {
   Menu, 
   X,
   Star,
-  BookMarked
+  BookMarked,
+  Headphones
 } from 'lucide-react';
 import { useVocabulary } from '../context/VocabularyContext';
 import { LESSONS_DATA } from '../data/lessons';
@@ -24,6 +25,7 @@ interface HeaderProps {
   onOpenFlashcards: () => void;
   onOpenQuiz: () => void;
   onOpenDatabase: () => void;
+  onOpenHoertexte?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -35,6 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenFlashcards,
   onOpenQuiz,
   onOpenDatabase,
+  onOpenHoertexte,
 }) => {
   const { getGlobalStats } = useVocabulary();
   const stats = getGlobalStats();
@@ -153,6 +156,17 @@ export const Header: React.FC<HeaderProps> = ({
                 ⌘K
               </kbd>
             </button>
+
+            {/* Hörtexte Transcripts */}
+            {onOpenHoertexte && (
+              <button
+                onClick={onOpenHoertexte}
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 hover:text-purple-900 transition-all font-semibold"
+              >
+                <Headphones className="w-4 h-4 text-purple-600" />
+                <span>متن‌های شنیداری (Hörtexte)</span>
+              </button>
+            )}
 
             {/* Flashcards */}
             <button

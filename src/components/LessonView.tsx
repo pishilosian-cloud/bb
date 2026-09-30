@@ -29,6 +29,7 @@ interface LessonViewProps {
   onBackToDashboard: () => void;
   onStartFlashcards: (lessonNum: number, filterCategory?: CategoryType, filterSource?: SourceType) => void;
   onStartQuiz: (lessonNum: number) => void;
+  onOpenHoertexte?: (lessonNum: number) => void;
 }
 
 type TabType = 'all' | 'Lehrbuch' | 'Hörtexte' | 'Nomen' | 'Verben' | 'Adjektive' | 'Adverbien' | 'Redewendungen';
@@ -39,6 +40,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
   onBackToDashboard,
   onStartFlashcards,
   onStartQuiz,
+  onOpenHoertexte,
 }) => {
   const { vocabulary, getLessonStats, userProgress, setWordStatus, toggleStarWord } = useVocabulary();
   const [activeTab, setActiveTab] = useState<TabType>('all');
@@ -183,8 +185,18 @@ export const LessonView: React.FC<LessonViewProps> = ({
               </p>
             </div>
 
-            {/* Quick Action Flashcards & Quiz */}
+            {/* Quick Action Flashcards & Quiz & Hörtexte */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              {onOpenHoertexte && (
+                <button
+                  onClick={() => onOpenHoertexte(lessonNumber)}
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm transition-all shadow-lg hover:shadow-purple-500/25 active:scale-95 cursor-pointer"
+                >
+                  <Headphones className="w-4 h-4" />
+                  <span>متن شنیداری (Hörtexte)</span>
+                </button>
+              )}
+
               <button
                 onClick={() => onStartFlashcards(lessonNumber)}
                 className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all shadow-lg hover:shadow-amber-500/25 active:scale-95 cursor-pointer"
@@ -195,7 +207,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
               <button
                 onClick={() => onStartQuiz(lessonNumber)}
-                className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all active:scale-95 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all active:scale-95 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-amber-300" />
                 <span>آزمون این درس</span>
